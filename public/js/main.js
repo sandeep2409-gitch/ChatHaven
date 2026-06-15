@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.innerHTML = `
                 <div class="chat-avatar" style="background-color: ${chat.color}">
-                    ${chat.type === 'group' ? '👥' : initials}
+                    ${chat.type === 'group' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-svg-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>' : initials}
                 </div>
                 <div class="chat-details">
                     <div class="chat-row-1">
@@ -384,7 +384,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Setup Header Metadata details
         activeChatTitle.textContent = chat.name;
-        activeAvatarDisplay.textContent = chat.type === 'group' ? '👥' : getInitials(chat.name);
+        if (chat.type === 'group') {
+            activeAvatarDisplay.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-svg-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>';
+        } else {
+            activeAvatarDisplay.innerHTML = escapeHTML(getInitials(chat.name));
+        }
         activeAvatarDisplay.style.backgroundColor = chat.color;
         activeChatSubtitle.textContent = chat.type === 'group' ? 'Group conversation' : 'Online contact';
 
